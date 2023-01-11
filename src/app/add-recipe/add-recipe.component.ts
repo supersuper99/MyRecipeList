@@ -9,9 +9,9 @@ import 'firebase/firestore';
   styleUrls: ['add-recipe.component.scss'],
 })
 export class AddRecipeComponent {
-  recipeName: string;
-  recipeIngredients: string;
-  recipeInstructions: string;
+  recipeName: string ="";
+  recipeIngredients: string="";
+  recipeInstructions: string="";
 
   constructor() {}
 
