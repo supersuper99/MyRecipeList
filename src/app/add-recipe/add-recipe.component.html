@@ -1,24 +1,25 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Add Recipe</ion-title>
+    <ion-title>
+      Add Recipe
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-list>
+<ion-content padding>
+  <form (ngSubmit)="addRecipeToPublicList()">
     <ion-item>
       <ion-label position="floating">Name</ion-label>
-      <ion-input [(ngModel)]="recipe.name" name="name"></ion-input>
+      <ion-input type="text" [(ngModel)]="recipeName" name="recipeName"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="floating">Ingredients</ion-label>
-      <ion-input [(ngModel)]="recipe.ingredients" name="ingredients"></ion-input>
+      <ion-textarea [(ngModel)]="recipeIngredients" name="recipeIngredients"></ion-textarea>
     </ion-item>
     <ion-item>
       <ion-label position="floating">Instructions</ion-label>
-      <ion-textarea [(ngModel)]="recipe.instructions" name="instructions"></ion-textarea>
+      <ion-textarea [(ngModel)]="recipeInstructions" name="recipeInstructions"></ion-textarea>
     </ion-item>
-  </ion-list>
-
-  <ion-button expand="block" (click)="onSubmit()">Add Recipe</ion-button>
+    <ion-button type="submit" expand="block" color="primary">Add to public list</ion-button>
+  </form>
 </ion-content>

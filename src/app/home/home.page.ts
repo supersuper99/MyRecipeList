@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FirebaseAuth } from '@angular/fire';
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 
@@ -30,6 +30,7 @@ import { Router } from '@angular/router';
 export class HomePage implements OnInit {
   user: firebase.User;
   
+  
   constructor(
     private auth: FirebaseAuth,
     private firestore: AngularFirestore,
@@ -41,6 +42,7 @@ export class HomePage implements OnInit {
       this.user = user;
     });
   }
+  
 
   goToRecipeList() {
     this.router.navigate(['/recipes']);
