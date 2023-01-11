@@ -1,14 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-recipe-popover',
-  templateUrl: './recipe-popover.component.html',
-  styleUrls: ['./recipe-popover.component.scss'],
+  template: `
+    <ion-card>
+      <ion-card-header>{{ recipe.name }}</ion-card-header>
+      <ion-card-content>
+        <p>Ingredients: {{ recipe.ingredients }}</p>
+        <p>Instructions: {{ recipe.instructions }}</p>
+        <p>Submitted by: {{ recipe.addedBy }}</p>
+      </ion-card-content>
+    </ion-card>
+  `
 })
-export class RecipePopoverComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit() {}
-
+export class RecipePopoverComponent {
+  recipe: any;
+  constructor() {}
 }
+
+
