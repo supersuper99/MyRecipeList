@@ -22,4 +22,19 @@
     </ion-item>
     <ion-button type="submit" expand="block" color="primary">Add to public list</ion-button>
   </form>
+  <form (ngSubmit)="addRecipeToPrivateList()">
+    <ion-item>
+      <ion-label position="floating">Name</ion-label>
+      <ion-input type="text" [(ngModel)]="recipeName" name="recipeName"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Ingredients</ion-label>
+      <ion-textarea [(ngModel)]="recipeIngredients" name="recipeIngredients"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Instructions</ion-label>
+      <ion-textarea [(ngModel)]="recipeInstructions" name="recipeInstructions"></ion-textarea>
+    </ion-item>
+    <ion-button type="submit" expand="block" color="primary">Add to private list</ion-button>
+  </form>
 </ion-content>
