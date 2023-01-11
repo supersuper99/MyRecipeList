@@ -1,54 +1,44 @@
 import { Component, OnInit } from '@angular/core';
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
 
 @Component({
   selector: 'app-home',
-  template: `
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>
-          Home
-        </ion-title>
-      </ion-toolbar>
-    </ion-header>
-
-    <ion-content>
-      <div *ngIf="user">
-        <h1>Welcome, {{user.displayName}}!</h1>
-        <ion-button (click)="goToRecipeList()">View Recipes</ion-button>
-      </div>
-      <div *ngIf="!user">
-        <h1>Welcome to Recipe Book</h1>
-        <p>Please login to view your recipes.</p>
-        <ion-button (click)="goToLogin()">Login</ion-button>
-      </div>
-    </ion-content>
-  `
+  templateUrl: 'home.page.html',
+  styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-  user: firebase.User;
-  
-  
-  constructor(
-    private auth: FirebaseAuth,
-    private firestore: AngularFirestore,
-    private router: Router,
-  ) { }
+  publicRecipeList: any[]=[];
+  publicRecipeListSub: any;
+  filteredRecipes: any[]=[];
+  constructor(private router: Router) { }
 
   ngOnInit() {
-    this.auth.user.subscribe(user => {
-      this.user = user;
+    this.publicRecipeListSub = firebase.firestore().collection('publicRecipeList').onSnapshot((querySnapshot) => {
+      this.publicRecipeList = [];
+      querySnapshot.forEach((doc) => {
+        this.publicRecipeList.push({ id: doc.id, ...doc.data() });
+      });
     });
   }
-  
-
-  goToRecipeList() {
-    this.router.navigate(['/recipes']);
+  ngOnDestroy() {
+    this.publicRecipeListSub();
   }
 
-  goToLogin() {
-    this.router.navigate(['/login']);
+  search(event:any) {
+    const searchTerm = event.target.value.toLowerCase();
+    this.filteredRecipes = this.publicRecipeList.filter((recipe) => recipe.name.toLowerCase().indexOf(searchTerm) > -1);
+  }
+
+  logOut() {
+    firebase.auth().signOut().then(() => {
+      // Sign-out successful.
+      this.router.navigate(['/login']);
+    }).catch((error) => {
+      // An error happened.
+      console.log(error);
+    });
   }
 }
