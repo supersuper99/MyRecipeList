@@ -40,4 +40,28 @@ export class AddRecipeComponent {
       // Handle error
     }
   }
+  async addRecipeToPrivateList() {
+    const { recipeName, recipeIngredients, recipeInstructions } = this;
+    try {
+      const user = firebase.auth().currentUser;
+      if (!user) {
+        // Handle error for user not logged in
+        return;
+      }
+
+      const privateRecipeList = firebase.firestore().collection(`users/${user.uid}/privateRecipes`);
+      const recipeRef = await privateRecipeList.add({
+        name: recipeName,
+        ingredients: recipeIngredients,
+        instructions: recipeInstructions,
+      });
+      // Reset form fields
+      this.recipeName = '';
+      this.recipeIngredients = '';
+      this.recipeInstructions = '';
+    } catch (err) {
+      console.dir(err);
+      // Handle error
+    }
+  }
 }
