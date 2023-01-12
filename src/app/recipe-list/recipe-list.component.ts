@@ -4,6 +4,9 @@ import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import { PopoverController } from '@ionic/angular';
 import { RecipePopoverComponent } from '../recipe-popover/recipe-popover.component';
+import firebaseApp from 'src/firebase';
+
+const db = firebaseApp.firestore();
 
 @Component({
   selector: 'app-recipe-list',
@@ -17,7 +20,7 @@ export class RecipeListComponent implements OnInit {
     public popoverController: PopoverController,
   ) { }
   ngOnInit() {
-    this.publicRecipeListSub = firebase.firestore().collection('publicRecipeList').onSnapshot((querySnapshot) => {
+    this.publicRecipeListSub = db.collection('publicRecipeList').onSnapshot((querySnapshot) => {
       this.publicRecipeList = [];
       querySnapshot.forEach((doc) => {
         this.publicRecipeList.push({ id: doc.id, ...doc.data() });

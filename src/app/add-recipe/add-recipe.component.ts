@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
+import db from 'src/firebase';
 
 @Component({
   selector: 'app-add-recipe',
@@ -24,7 +25,7 @@ export class AddRecipeComponent {
         return;
       }
 
-      const publicRecipeList = firebase.firestore().collection('publicRecipeList');
+      const publicRecipeList = db.collection('publicRecipeList');
       const recipeRef = await publicRecipeList.add({
         name: recipeName,
         ingredients: recipeIngredients,

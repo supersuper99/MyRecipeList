@@ -3,6 +3,13 @@ import { Router } from '@angular/router';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
+import firebaseApp from 'src/firebase';
+import { getAuth } from "firebase/auth";
+
+const auth = getAuth(firebaseApp);
+const db = firebaseApp.firestore();
+
+
 
 @Component({
   selector: 'app-home',
@@ -16,7 +23,7 @@ export class HomePage implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit() {
-    this.publicRecipeListSub = firebase.firestore().collection('publicRecipeList').onSnapshot((querySnapshot) => {
+    this.publicRecipeListSub = db.collection('publicRecipeList').onSnapshot((querySnapshot) => {
       this.publicRecipeList = [];
       querySnapshot.forEach((doc) => {
         this.publicRecipeList.push({ id: doc.id, ...doc.data() });
@@ -33,7 +40,7 @@ export class HomePage implements OnInit {
   }
 
   logOut() {
-    firebase.auth().signOut().then(() => {
+    auth.signOut().then(() => {
       // Sign-out successful.
       this.router.navigate(['/login']);
     }).catch((error) => {

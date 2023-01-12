@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
+import firebaseApp from 'src/firebase';
+
+const db = firebaseApp.firestore();
 
 @Component({
   template: `
@@ -28,7 +31,7 @@ export class RecipePopoverComponent {
          return;
         }
         // add to user private recipe list
-        const privateRecipeList = firebase.firestore().collection(`users/${user.uid}/privateRecipes`);
+        const privateRecipeList = db.collection(`users/${user.uid}/privateRecipes`);
         const recipeRef = await privateRecipeList.add({
           name: recipe.name,
           ingredients: recipe.ingredients,
