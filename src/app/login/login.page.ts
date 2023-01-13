@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { getAuth } from 'firebase/auth';
 import firebase from 'firebase/compat/app';
@@ -15,11 +16,13 @@ const auth = getAuth(firebaseApp)
 })
 export class LoginPage {
   error: string = '';
+  form!: FormGroup;
 
   constructor(private router: Router) {}
 
-  login(form:any) {
-    const { email, password } = form.value;
+  login() {
+
+    const { email, password } = this.form.value;
     auth.signInWithEmailAndPassword(email, password)
       .then(() => {
         this.router.navigate(['/home']);
