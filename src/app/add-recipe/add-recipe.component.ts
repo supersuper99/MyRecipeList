@@ -4,9 +4,11 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import firebaseApp from 'src/firebase';
+import { Recipe } from '../recipe';
 
 const db = firebaseApp.firestore();
 const auth = getAuth(firebaseApp);
+
 
 @Component({
   selector: 'app-add-recipe',
@@ -14,14 +16,14 @@ const auth = getAuth(firebaseApp);
   styleUrls: ['add-recipe.component.scss'],
 })
 export class AddRecipeComponent {
-  recipeName: string ="";
+  recipeName: string="";
   recipeIngredients: string="";
   recipeInstructions: string="";
 
   constructor() {}
 
   async addRecipeToPublicList() {
-    const { recipeName, recipeIngredients, recipeInstructions } = this;
+    const { recipe.name, recipeIngredients, recipeInstructions } = this;
     try {
       const user = auth.currentUser;
       if (!user) {
