@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { getAuth } from 'firebase/auth';
+
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import firebaseApp from 'src/firebase';
 
-const auth = getAuth(firebaseApp)
+const auth = getAuth(firebaseApp);
+
 
 @Component({
   selector: 'app-login',
@@ -16,19 +18,40 @@ const auth = getAuth(firebaseApp)
 })
 export class LoginPage {
   error: string = '';
-  form!: FormGroup;
+  validateForm!: FormGroup;
+  buildForm: any;
 
-  constructor(private router: Router) {}
 
-  login() {
+  constructor(private router: Router, private fb: FormBuilder) {}
 
-    const { email, password } = this.form.value;
-    auth.signInWithEmailAndPassword(email, password)
-      .then(() => {
-        this.router.navigate(['/home']);
-      })
-      .catch((error: any) => {
-        this.error = error.message;
-      });
+  OnInit(){
+    this.buildForm()
   }
+
+  login(): void {
+    if (this.validateForm.valid){
+      //Do shit
+    } else{
+      this.validateForm.markAsDirty();
+    }
+  }
+
+  forgotPassword(){
+
+  }
+
+
+
+
+  // login() {
+
+  //   const { email, password } = this.form.value;
+  //   signInWithEmailAndPassword(auth, email, password)
+  //     .then(() => {
+  //       this.router.navigate(['/home']);
+  //     })
+  //     .catch((error: any) => {
+  //       this.error = error.message;
+  //     });
+  // }
 }

@@ -7,7 +7,32 @@
 </ion-header>
 
 <ion-content>
-  <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+  <form [formGroup]="validateForm">
+    <ion-item>
+      <ion-label position="stacked"> Email </ion-label>
+      <ion-input formControlName="email"></ion-input>
+    </ion-item>
+    <p class="error-message" *ngIf="validateForm.get('email')!.dirty && validateForm.get('email')!.hasError('required')">
+      please input email
+    </p>
+    <ion-item>
+      <ion-label position="stacked"> Password </ion-label>
+      <ion-input formControlName="password" type="password"></ion-input>
+    </ion-item>
+    <p class="error-message" *ngIf="validateForm.get('password')!.dirty && validateForm.get('password')!.hasError('required')">
+      please input password
+    </p>
+    <ion-button (click)="login()" class="button" expand="block">
+      Log in
+    </ion-button>
+    <ion-row class="ion-justify-content-end forgot-password">
+      <ion-button fill="clear" (click)="forgotPassword()"> Forgot password?</ion-button>
+    </ion-row>
+  </form>
+
+
+
+   <!-- <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
     <ion-item>
       <ion-label position="floating">Email</ion-label>
       <ion-input type="email" name="email" ngModel required></ion-input>
@@ -17,6 +42,6 @@
       <ion-input type="password" name="password" ngModel required></ion-input>
     </ion-item>
     <ion-button type="submit" [disabled]="!loginForm.valid" expand="block">Login</ion-button>
-  </form>
-  <ion-text color="danger" *ngIf="error">{{ error }}</ion-text>
+  </form> -->
+  <!-- <ion-text color="danger" *ngIf="error">{{ error }}</ion-text> -->
 </ion-content>

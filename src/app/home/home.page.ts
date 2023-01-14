@@ -5,6 +5,7 @@ import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import firebaseApp from 'src/firebase';
 import { getAuth } from "firebase/auth";
+import { RecipeListComponent } from '../recipe-list/recipe-list.component';
 
 const auth = getAuth(firebaseApp);
 const db = firebaseApp.firestore();

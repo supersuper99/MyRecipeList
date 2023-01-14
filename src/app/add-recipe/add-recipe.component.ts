@@ -1,8 +1,12 @@
 import { Component } from '@angular/core';
+import { getAuth } from 'firebase/auth';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
-import db from 'src/firebase';
+import firebaseApp from 'src/firebase';
+
+const db = firebaseApp.firestore();
+const auth = getAuth(firebaseApp);
 
 @Component({
   selector: 'app-add-recipe',
@@ -19,7 +23,7 @@ export class AddRecipeComponent {
   async addRecipeToPublicList() {
     const { recipeName, recipeIngredients, recipeInstructions } = this;
     try {
-      const user = firebase.auth().currentUser;
+      const user = auth.currentUser;
       if (!user) {
         // Handle error for user not logged in
         return;
