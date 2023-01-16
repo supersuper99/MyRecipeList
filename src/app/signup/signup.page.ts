@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import firebase from 'firebase/compat/app';
@@ -7,7 +7,8 @@ import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import firebaseApp from 'src/firebase';
 
-const auth = getAuth(firebaseApp)
+const auth = firebase.auth();
+const db = firebase.firestore().collection('users')
 
 @Component({
   selector: 'app-signup',
@@ -18,21 +19,49 @@ export class SignupPage {
   error: string ='';
 
   validateForm!: FormGroup;
-  buildForm: any;
+
 
 
   constructor(private router: Router, private fb: FormBuilder) {}
 
-  OnInit(){
-    this.buildForm()
+  ngOnInit(){
+    this.buildForm();
   }
+
+  buildForm(): void {
+    this.validateForm = this.fb.group({
+      username:[null,[Validators.maxLength(10)]],
+      email:[null,[Validators.email,Validators.required]],
+      password:[null,[Validators.required]]
+    });
+  }
+
   signup(): void {
     if (this.validateForm.valid){
-      //Do shit
+      const email = this.validateForm.controls['email'].value;
+      const password = this.validateForm.controls['password'].value;
+      const username = this.validateForm.controls['username'].value;
+
+      auth.createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          const user = userCredential.user
+          userCredential.user?.updateProfile({
+            displayName: username
+          });
+          if (user) {
+          db.doc(user.uid).set({
+            username: username,
+            email: email
+          });
+        }
+          this.router.navigate(['/home']);
+        })
     } else{
       this.validateForm.markAsDirty();
     }
   }
+
+  forgotPassword(){}
 
   
 
