@@ -43,7 +43,7 @@ export class HomePage implements OnInit {
   logOut() {
     auth.signOut().then(() => {
       // Sign-out successful.
-      this.router.navigate(['/login']);
+      this.router.navigate(['/signup']);
     }).catch((error) => {
       // An error happened.
       console.log(error);
