@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators,  } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
@@ -7,6 +7,7 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import firebaseApp from 'src/firebase';
+
 
 const auth = getAuth(firebaseApp);
 
@@ -16,16 +17,21 @@ const auth = getAuth(firebaseApp);
   templateUrl: 'login.page.html',
   styleUrls: ['login.page.scss'],
 })
-export class LoginPage {
+export class LoginPage implements OnInit {
   error: string = '';
   validateForm!: FormGroup;
-  buildForm: any;
-
 
   constructor(private router: Router, private fb: FormBuilder) {}
 
-  OnInit(){
-    this.buildForm()
+  ngOnInit(){
+    this.buildForm();
+  }
+
+  buildForm(): void {
+    this.validateForm = this.fb.group({
+      email:[null,[Validators.email,Validators.required]],
+      password:[null,[Validators.required]]
+    });
   }
 
   login(): void {

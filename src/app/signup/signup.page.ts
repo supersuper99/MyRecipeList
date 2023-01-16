@@ -15,25 +15,26 @@ const auth = getAuth(firebaseApp)
   styleUrls: ['signup.page.scss'],
 })
 export class SignupPage {
-  error: string = '';
+  error: string ='';
+
   validateForm!: FormGroup;
   buildForm: any;
 
 
-  constructor(private router: Router, private fb: FormBuilder) { }
+  constructor(private router: Router, private fb: FormBuilder) {}
 
-  OnInit() {
+  OnInit(){
     this.buildForm()
   }
   signup(): void {
-    if (this.validateForm.valid) {
+    if (this.validateForm.valid){
       //Do shit
-    } else {
+    } else{
       this.validateForm.markAsDirty();
     }
   }
 
-
+  
 
   // signUp(form) {
   //   const { username, email, password } = form.value;
@@ -44,13 +45,13 @@ export class SignupPage {
   //         displayName: username, photoURL:""
   //       } )
   //       .then(() => {
-
+     
   //       })
   //       .catch((error) => {
   //         // An error occurred
   //         // ...
   //       });
-
+       
   //       this.router.navigate(['/home']);
   // }})
   //     .catch((error) => {

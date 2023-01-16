@@ -7,14 +7,7 @@
 <ion-content>
   <ion-content>
     <form [formGroup]="validateForm">
-      <ion-item>
-        <ion-label position="stacked"> Username </ion-label>
-        <ion-input formControlName="username"></ion-input>
-      </ion-item>
-      <p class="error-message"
-        *ngIf="validateForm.get('username')!.dirty && validateForm.get('username')!.hasError('required')">
-        please input username
-      </p>
+     
       <ion-item>
         <ion-label position="stacked"> Email </ion-label>
         <ion-input formControlName="email"></ion-input>
