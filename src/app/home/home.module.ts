@@ -3,8 +3,9 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
-
+import { RecipeListComponent } from '../recipe-list/recipe-list.component';
 import { HomePageRoutingModule } from './home-routing.module';
+import { AddRecipeComponent } from '../add-recipe/add-recipe.component';
 
 
 @NgModule({
@@ -12,7 +13,9 @@ import { HomePageRoutingModule } from './home-routing.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    HomePageRoutingModule
+    HomePageRoutingModule,
+    RecipeListComponent,
+    AddRecipeComponent
   ],
   declarations: [HomePage]
 })

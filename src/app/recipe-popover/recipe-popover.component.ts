@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { getAuth } from 'firebase/auth';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import firebaseApp from 'src/firebase';
+import { Recipe } from '../recipe';
 
 const db = firebaseApp.firestore();
 const auth = getAuth(firebaseApp)
@@ -22,7 +23,11 @@ const auth = getAuth(firebaseApp)
   `
 })
 export class RecipePopoverComponent {
-  recipe: any;
+  @Input()
+  recipe!: Recipe;
+  db = firebase.firestore();
+auth = firebase.auth;
+
   constructor() {}
 
   async addToPrivateList(recipe:any) {

@@ -4,24 +4,23 @@
       Home
     </ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="logOut()">
-        <ion-icon name="exit"></ion-icon>
+      <ion-button (click)="goToProfile()">
+        <ion-icon name="person"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-searchbar (ionInput)="search($event)"></ion-searchbar>
-  <!-- <app-recipe-list [filteredRecipes]="filteredRecipes"></app-recipe-list> -->
+  <!-- <ion-searchbar [(ngModel)]="searchTerm" (ionChange)="searchRecipes()"></ion-searchbar> -->
+  <ion-list>
+    <ion-item *ngFor="let recipe of filteredRecipes" (click)="openRecipePopover(recipe)">
+      {{recipe.name}}
+    </ion-item>
+  </ion-list>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button routerLink="/add-recipe">
+    <ion-fab-button (click)="addRecipe()">
       <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
-  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
-    <ion-fab-button routerLink="/profile">
-      <ion-icon name="person"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 </ion-content>
