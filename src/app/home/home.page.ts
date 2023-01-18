@@ -11,8 +11,7 @@ import { RecipePopoverComponent } from '../recipe-popover/recipe-popover.compone
 import { AddRecipeComponent } from '../add-recipe/add-recipe.component';
 import { PopoverController } from '@ionic/angular';
 
-const auth = getAuth(firebaseApp);
-const db = firebaseApp.firestore();
+
 
 
 
@@ -25,15 +24,14 @@ export class HomePage implements OnInit {
   publicRecipeList: Recipe[]=[];
   publicRecipeListSub: Recipe[]=[];
   serchTerm: string ='';
+  auth = firebase.auth();
+  db = firebase.firestore;
+
+
   constructor(private router: Router, private popoverController: PopoverController) { }
 
   ngOnInit() {
-    // this.publicRecipeListSub = db.collection('publicRecipeList').onSnapshot((querySnapshot) => {
-    //   this.publicRecipeList = [];
-    //   querySnapshot.forEach((doc) => {
-    //     this.publicRecipeList.push({ id: doc.id, ...doc.data() });
-    //   });
-    // });
+  
   }
   ngOnDestroy() {
     // this.publicRecipeListSub();
@@ -53,7 +51,7 @@ export class HomePage implements OnInit {
   }
 
   logOut() {
-    auth.signOut().then(() => {
+    this.auth.signOut().then(() => {
       // Sign-out successful.
       this.router.navigate(['/signup']);
     }).catch((error) => {

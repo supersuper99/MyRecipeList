@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
@@ -7,6 +7,7 @@ import { RecipePopoverComponent } from '../recipe-popover/recipe-popover.compone
 import firebaseApp from 'src/firebase';
 import { Recipe } from '../recipe';
 import { Router } from '@angular/router';
+import { FirebaseService } from 'src/services/firebase.service';
 
 
 
@@ -16,31 +17,47 @@ import { Router } from '@angular/router';
   styleUrls: ['./recipe-list.component.scss'],
 })
 export class RecipeListComponent implements OnInit {
-  publicRecipeList: Recipe[]= [];
-  filteredRecipes: Recipe[]= [];
+  
+  public recipes:Recipe[]=[]
+ 
   searchTerm: string = '';
   db = firebase.firestore();
   auth = firebase.auth()
 
-  constructor(public popoverController: PopoverController,private router: Router) { }
+  constructor(public popoverController: PopoverController,private router: Router, private firebaseService: FirebaseService) { }
 
   ngOnInit() {
-    // Get the public recipe list from Firestore
-    firebase.firestore().collection('recipes').onSnapshot((querySnapshot) => {
-      this.publicRecipeList = [];
-      querySnapshot.forEach((doc) => {
-        this.publicRecipeList.push({
-          id: doc.id, ...doc.data(),
-          name: '',
-          ingredients: [],
-          instructions: '',
-          userId: '',
-          createdAt: new Date,
-        });
+    this.firebaseService.getPublicRecipesList()
+    .then(querySnapshot => {
+      this.recipes = querySnapshot.docs.map(doc => {
+        return {
+          id: doc.id,
+          ...doc.data()
+        } as Recipe;
       });
-      this.filteredRecipes = this.publicRecipeList;
+      console.log(this.recipes)
+    })
+    .catch(error => {
+      console.log(error);
     });
-  }
+}
+    
+
+    // this.db.collection('publicRecipesList').onSnapshot((querySnapshot) => {
+    //   this.publicRecipesList = [];
+    //   querySnapshot.forEach((doc) => {
+    //     this.publicRecipesList.push({
+    //       id: doc.id, ...doc.data(),
+    //       name: '',
+    //       ingredients: '',
+    //       instructions: '',
+    //       userId: '',
+    //       createdAt: new Date,
+    //     });
+    //   });
+      
+    // });
+  
 
   goToProfile() {
     const user = firebase.auth().currentUser;

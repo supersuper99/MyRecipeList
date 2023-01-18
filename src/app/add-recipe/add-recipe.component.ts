@@ -1,25 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { getAuth } from 'firebase/auth';
+import { FormGroup, FormBuilder, Validators, FormsModule, ReactiveFormsModule,} from '@angular/forms';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
-import firebaseApp from 'src/firebase';
 import { Recipe } from '../recipe';
+import { FirebaseService } from 'src/services/firebase.service';
 
-const db = firebaseApp.firestore();
-const auth = getAuth(firebaseApp);
+
 
 @Component({
   selector: 'app-add-recipe',
   templateUrl: 'add-recipe.component.html',
   styleUrls: ['add-recipe.component.scss'],
+  
 })
 export class AddRecipeComponent implements OnInit {
   addRecipeForm!: FormGroup;
-  private recipeList: Recipe[] = [];
+  public recipe!: Recipe;
+   db = firebase.firestore();
+   auth = firebase.auth();
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, private firebaseService: FirebaseService,) {}
 
   ngOnInit() {
     this.buildForm()
@@ -35,32 +36,40 @@ export class AddRecipeComponent implements OnInit {
 
   addRecipe() {
     if (this.addRecipeForm.valid) {
-      const user = auth.currentUser;
+      const user = this.auth.currentUser;
       if (!user) {
-        // Show an error message
+        console.log('no user try again')
         return;
-      }
-      const recipe = new Recipe();
+      } 
+      const recipe =  new Recipe();
+
+      
       recipe.name = this.addRecipeForm.controls['name'].value;
       recipe.ingredients = this.addRecipeForm.controls['ingredients'].value;
       recipe.instructions = this.addRecipeForm.controls['instructions'].value;
       recipe.userId = user.uid;
-      recipe.createdAt = new Date();
-      db.collection('publicRecipesList').add(recipe)
+      recipe.createdAt = new Date;
+      const plainObject = { ...recipe };
+       
+      this.firebaseService.addRecipe(plainObject)
+     
         .then(() => {
           // Show a success message
           // Clear the form
           this.addRecipeForm.reset();
+          console.log(recipe)
+          console.log(plainObject)
         })
         .catch((error) => {
           // Show an error message
         });
-      }
     }
-    
+
+    }
+
   async addRecipeToPrivateList() {
     if (this.addRecipeForm.valid) {
-      const user = auth.currentUser;
+      const user = this.auth.currentUser;
       if (!user) {
         // Show an error message
         return;
@@ -71,7 +80,7 @@ export class AddRecipeComponent implements OnInit {
       recipe.instructions = this.addRecipeForm.controls['instructions'].value;
       recipe.userId = user.uid;
       recipe.createdAt = new Date();
-      db.collection(`users/${user.uid}/privateRecipes`).add(recipe)
+      this.db.collection(`users/${user.uid}/privateRecipes`).add(recipe)
         .then(() => {
           // Show a success message
           // Clear the form

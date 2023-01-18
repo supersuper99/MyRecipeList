@@ -6,15 +6,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <form [formGroup]="validateForm">
-    <ion-item>
-      <ion-label position="stacked"> Username </ion-label>
-      <ion-input formControlName="username"></ion-input>
-    </ion-item>
-    <p class="error-message"
-      *ngIf="validateForm.get('username')!.dirty && validateForm.get('username')!.hasError('required')">
-      please input username
-    </p>
+  <form [formGroup]="addRecipeForm">
     <ion-item>
       <ion-label position="stacked"> Recipe Name </ion-label>
       <ion-input formControlName="name"></ion-input>
@@ -25,10 +17,10 @@
     </p>
     <ion-item>
       <ion-label position="stacked"> Ingredients </ion-label>
-      <ion-input formControlName="Ingredients"></ion-input>
+      <ion-input formControlName="ingredients"></ion-input>
     </ion-item>
     <p class="error-message"
-      *ngIf="addRecipeForm.get('Ingredients')!.dirty && addRecipeForm.get('Ingredients')!.hasError('required')">
+      *ngIf="addRecipeForm.get('ingredients')!.dirty && addRecipeForm.get('ingredients')!.hasError('required')">
       please input Ingredients
     </p>
     <ion-item>
