@@ -14,9 +14,9 @@ import { AddRecipeComponent } from '../add-recipe/add-recipe.component';
     FormsModule,
     IonicModule,
     HomePageRoutingModule,
-    RecipeListComponent,
-    AddRecipeComponent
+    
+  
   ],
-  declarations: [HomePage]
+  declarations: [HomePage, AddRecipeComponent, RecipeListComponent]
 })
 export class HomePageModule {}

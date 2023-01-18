@@ -6,7 +6,49 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <form [formGroup]="addRecipeForm" (ngSubmit)="addRecipe()">
+  <form [formGroup]="validateForm">
+    <ion-item>
+      <ion-label position="stacked"> Username </ion-label>
+      <ion-input formControlName="username"></ion-input>
+    </ion-item>
+    <p class="error-message"
+      *ngIf="validateForm.get('username')!.dirty && validateForm.get('username')!.hasError('required')">
+      please input username
+    </p>
+    <ion-item>
+      <ion-label position="stacked"> Recipe Name </ion-label>
+      <ion-input formControlName="name"></ion-input>
+    </ion-item>
+    <p class="error-message"
+      *ngIf="addRecipeForm.get('name')!.dirty && addRecipeForm.get('name')!.hasError('required')">
+      please input recipe name
+    </p>
+    <ion-item>
+      <ion-label position="stacked"> Ingredients </ion-label>
+      <ion-input formControlName="Ingredients"></ion-input>
+    </ion-item>
+    <p class="error-message"
+      *ngIf="addRecipeForm.get('Ingredients')!.dirty && addRecipeForm.get('Ingredients')!.hasError('required')">
+      please input Ingredients
+    </p>
+    <ion-item>
+      <ion-label position="stacked"> Instructions </ion-label>
+      <ion-input formControlName="instructions"></ion-input>
+    </ion-item>
+    <p class="error-message"
+      *ngIf="addRecipeForm.get('instructions')!.dirty && addRecipeForm.get('instructions')!.hasError('required')">
+      please input Ingredients
+    </p>
+    <ion-button (click)="addRecipe()" class="button" expand="block">
+      Add recipe
+    </ion-button>
+    <ion-button class="button" expand="block">
+      Add to private list
+    </ion-button>
+  </form>
+
+
+  <!-- <form [formGroup]="addRecipeForm" (ngSubmit)="addRecipe()">
     <ion-item>
       <ion-label position="floating">Recipe Name</ion-label>
       <ion-input formControlName="name"></ion-input>
@@ -20,5 +62,5 @@
       <ion-textarea formControlName="instructions"></ion-textarea>
     </ion-item>
     <ion-button expand="block" type="submit" [disabled]="!addRecipeForm.valid">Add Recipe</ion-button>
-  </form>
+  </form> -->
 </ion-content>

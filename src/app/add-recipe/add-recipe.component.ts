@@ -16,15 +16,16 @@ const auth = getAuth(firebaseApp);
   styleUrls: ['add-recipe.component.scss'],
 })
 export class AddRecipeComponent implements OnInit {
-  recipeName: string="";
-  recipeIngredients: string="";
-  recipeInstructions: string="";
   addRecipeForm!: FormGroup;
   private recipeList: Recipe[] = [];
 
   constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit() {
+    this.buildForm()
+  }
+
+  buildForm(): void {
     this.addRecipeForm = this.formBuilder.group({
       name: ['', Validators.required],
       ingredients: ['', Validators.required],
@@ -56,6 +57,7 @@ export class AddRecipeComponent implements OnInit {
         });
       }
     }
+    
   async addRecipeToPrivateList() {
     if (this.addRecipeForm.valid) {
       const user = auth.currentUser;

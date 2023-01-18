@@ -12,8 +12,8 @@ import { RecipeDetailComponent } from './recipe-detail/recipe-detail.component';
 import { AddRecipeComponent } from './add-recipe/add-recipe.component';
 
 @NgModule({
-  declarations: [AppComponent, RecipePopoverComponent, RecipeListComponent, RecipeDetailComponent, AddRecipeComponent ],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, ReactiveFormsModule, FormsModule],
+  declarations: [AppComponent,RecipePopoverComponent, RecipeDetailComponent, ],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })

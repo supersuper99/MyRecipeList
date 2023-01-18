@@ -8,8 +8,8 @@ import { getAuth } from "firebase/auth";
 import { RecipeListComponent } from '../recipe-list/recipe-list.component';
 import { Recipe } from '../recipe';
 import { RecipePopoverComponent } from '../recipe-popover/recipe-popover.component';
-import { PopoverController } from '@ionic/angular/providers/popover-controller';
 import { AddRecipeComponent } from '../add-recipe/add-recipe.component';
+import { PopoverController } from '@ionic/angular';
 
 const auth = getAuth(firebaseApp);
 const db = firebaseApp.firestore();

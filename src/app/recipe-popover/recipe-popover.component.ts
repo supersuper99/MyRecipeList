@@ -16,7 +16,7 @@ const auth = getAuth(firebaseApp)
       <ion-card-content>
         <p>Ingredients: {{ recipe.ingredients }}</p>
         <p>Instructions: {{ recipe.instructions }}</p>
-        <p>Submitted by: {{ recipe.addedBy }}</p>
+        <p>Submitted by: {{ recipe.userId }}</p>
         <ion-button (click)="addToPrivateList(recipe)" expand="block" color="primary">Add to My List</ion-button>
       </ion-card-content>
     </ion-card>
@@ -43,7 +43,7 @@ auth = firebase.auth;
           name: recipe.name,
           ingredients: recipe.ingredients,
           instructions: recipe.instructions,
-          addedBy: recipe.addedBy
+          addedBy: recipe.userId
         });
       } catch (err) {
         console.dir(err);
