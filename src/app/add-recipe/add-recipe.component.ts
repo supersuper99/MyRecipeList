@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormsModule, ReactiveFormsModule,} from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, } from '@angular/forms';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
@@ -47,7 +47,7 @@ export class AddRecipeComponent implements OnInit {
       recipe.name = this.addRecipeForm.controls['name'].value;
       recipe.ingredients = this.addRecipeForm.controls['ingredients'].value;
       recipe.instructions = this.addRecipeForm.controls['instructions'].value;
-      recipe.userId = user.uid;
+      recipe.userId = user.displayName;
       recipe.createdAt = new Date;
       const plainObject = { ...recipe };
        
@@ -78,7 +78,7 @@ export class AddRecipeComponent implements OnInit {
       recipe.name = this.addRecipeForm.controls['name'].value;
       recipe.ingredients = this.addRecipeForm.controls['ingredients'].value;
       recipe.instructions = this.addRecipeForm.controls['instructions'].value;
-      recipe.userId = user.uid;
+      recipe.userId = user.displayName;
       recipe.createdAt = new Date();
       this.db.collection(`users/${user.uid}/privateRecipes`).add(recipe)
         .then(() => {

@@ -1,53 +1,93 @@
 import { Component, Input } from '@angular/core';
-import { getAuth } from 'firebase/auth';
+import { PopoverController } from '@ionic/angular';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
-import firebaseApp from 'src/firebase';
 import { Recipe } from '../models/recipe';
+import { ModalController } from '@ionic/angular';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Review } from '../models/review';
+import { FirebaseService } from 'src/services/firebase.service';
 
-const db = firebaseApp.firestore();
-const auth = getAuth(firebaseApp)
+const db = firebase.firestore();
+const auth = firebase.auth();
 
 @Component({
-  template: `
-    <ion-card>
-      <ion-card-header>{{ recipe.name }}</ion-card-header>
-      <ion-card-content>
-        <p>Ingredients: {{ recipe.ingredients }}</p>
-        <p>Instructions: {{ recipe.instructions }}</p>
-        <p>Submitted by: {{ recipe.userId }}</p>
-        <ion-button (click)="addToPrivateList(recipe)" expand="block" color="primary">Add to My List</ion-button>
-      </ion-card-content>
-    </ion-card>
-  `
+  selector: 'app-recipe-popover',
+  templateUrl: './recipe-popover.component.html',
+  styleUrls: ['./recipe-popover.component.scss'],
 })
 export class RecipePopoverComponent {
   @Input()
   recipe!: Recipe;
   db = firebase.firestore();
-auth = firebase.auth;
+  auth = firebase.auth();
+  reviewForm!: FormGroup;
 
-  constructor() {}
 
-  async addToPrivateList(recipe:any) {
+  constructor(private popoverController: PopoverController, private modalCtrl: ModalController, private formBuilder: FormBuilder, private firebaseService: FirebaseService) { }
+
+  ngOnInit() {
+    this.buildForm()
+  }
+
+  addReview() {
+    if (this.reviewForm.valid) {
+      const user = this.auth.currentUser;
+      if (!user) {
+        console.log('no user try again')
+        return;
+      } 
+    const review: Review = {
+        userId: user.displayName,
+        rating: this.reviewForm.value.rating,
+        comment: this.reviewForm.value.comment,
+        createdAt: new Date()
+    };
+    this.firebaseService.addReview(this.recipe.id, review).then(() => {
+        this.reviewForm.reset();
+    });
+  }
+}
+
+
+
+  buildForm(): void {
+    this.reviewForm = this.formBuilder.group({
+      rating: [0, Validators.required],
+      comment: ['', Validators.required],
+    });
+  }
+
+
+  async showDetails(recipe: any) {
+    const modal = await this.modalCtrl.create({
+      component: RecipePopoverComponent,
+      componentProps: { recipe },
+    });
+    return await modal.present();
+  }
+
+
+
+  async addToPrivateList(recipe: any) {
     try {
       const user = auth.currentUser;
       if (!user) {
-         // Handle error for user not logged in
-         return;
-        }
-        // add to user private recipe list
-        const privateRecipeList = db.collection(`users/${user.uid}/privateRecipes`);
-        const recipeRef = await privateRecipeList.add({
-          name: recipe.name,
-          ingredients: recipe.ingredients,
-          instructions: recipe.instructions,
-          addedBy: recipe.userId
-        });
-      } catch (err) {
-        console.dir(err);
-        // Handle error
+        // Handle error for user not logged in
+        return;
       }
+      // add to user private recipe list
+      const privateRecipeList = db.collection(`users/${user.uid}/privateRecipes`);
+      const recipeRef = await privateRecipeList.add({
+        name: recipe.name,
+        ingredients: recipe.ingredients,
+        instructions: recipe.instructions,
+        addedBy: recipe.userId
+      });
+    } catch (err) {
+      console.dir(err);
+      // Handle error
     }
   }
+}

@@ -1,1 +1,31 @@
-
+<ion-header>
+    <ion-toolbar>
+      <ion-title>Recipe Details</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">
+      <ion-card>
+        <ion-card-header>{{ recipe.name }}</ion-card-header>
+        <ion-card-content>
+          <p>Ingredients: {{ recipe.ingredients }}</p>
+          <p>Instructions: {{ recipe.instructions }}</p>
+          <p>Submitted by: {{ recipe.userId }}</p>
+          <form [formGroup]="reviewForm">
+            <ion-item>
+                <ion-label position="stacked"> Rating </ion-label>
+                <ion-input formControlName="rating"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked"> Comment </ion-label>
+                <ion-input formControlName="comment"></ion-input>
+              </ion-item>
+              <ion-button (click)="addRecipe()" class="button" expand="block" [disabled]="reviewForm.invalid">
+                Add Review
+              </ion-button>
+          </form>
+        
+          <!-- <ion-button (click)="addToPrivateList(recipe)" expand="block" color="primary">Add to My List</ion-button> -->
+          
+        </ion-card-content>
+      </ion-card>
+      </ion-content>

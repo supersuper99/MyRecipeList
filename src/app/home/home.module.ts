@@ -6,6 +6,7 @@ import { HomePage } from './home.page';
 import { RecipeListComponent } from '../recipe-list/recipe-list.component';
 import { HomePageRoutingModule } from './home-routing.module';
 import { AddRecipeComponent } from '../add-recipe/add-recipe.component';
+import { RecipePopoverComponent } from '../recipe-popover/recipe-popover.component';
 
 
 @NgModule({
@@ -17,6 +18,6 @@ import { AddRecipeComponent } from '../add-recipe/add-recipe.component';
     
   
   ],
-  declarations: [HomePage,AddRecipeComponent, RecipeListComponent]
+  declarations: [HomePage,AddRecipeComponent, RecipeListComponent,RecipePopoverComponent]
 })
 export class HomePageModule {}

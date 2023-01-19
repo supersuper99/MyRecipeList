@@ -5,7 +5,7 @@ export class Recipe {
     name: string='';
     ingredients: string='';
     instructions: string='';
-    userId!: string;
+    userId!: any;
     createdAt!: Date;
     rating: number = 0;
     reviews: Review[] = [];

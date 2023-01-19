@@ -1,5 +1,5 @@
 export class Review {
-    userId: string = '';
+    userId!: any;
     comment: string = '';
     rating: number =0;
     createdAt!: Date;
