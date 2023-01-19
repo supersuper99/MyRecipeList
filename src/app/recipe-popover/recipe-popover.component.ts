@@ -4,7 +4,7 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import firebaseApp from 'src/firebase';
-import { Recipe } from '../recipe';
+import { Recipe } from '../models/recipe';
 
 const db = firebaseApp.firestore();
 const auth = getAuth(firebaseApp)

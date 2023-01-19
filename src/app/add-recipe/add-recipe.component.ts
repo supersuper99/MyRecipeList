@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators, FormsModule, ReactiveFormsModule,} 
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
-import { Recipe } from '../recipe';
+import { Recipe } from '../models/recipe';
 import { FirebaseService } from 'src/services/firebase.service';
 
 

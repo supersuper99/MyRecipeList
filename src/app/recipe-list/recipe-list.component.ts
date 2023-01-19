@@ -5,7 +5,7 @@ import 'firebase/compat/firestore';
 import { PopoverController } from '@ionic/angular';
 import { RecipePopoverComponent } from '../recipe-popover/recipe-popover.component';
 import firebaseApp from 'src/firebase';
-import { Recipe } from '../recipe';
+import { Recipe } from '../models/recipe';
 import { Router } from '@angular/router';
 import { FirebaseService } from 'src/services/firebase.service';
 

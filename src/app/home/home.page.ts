@@ -6,7 +6,7 @@ import 'firebase/compat/firestore';
 import firebaseApp from 'src/firebase';
 import { getAuth } from "firebase/auth";
 import { RecipeListComponent } from '../recipe-list/recipe-list.component';
-import { Recipe } from '../recipe';
+import { Recipe } from '../models/recipe';
 import { RecipePopoverComponent } from '../recipe-popover/recipe-popover.component';
 import { AddRecipeComponent } from '../add-recipe/add-recipe.component';
 import { PopoverController } from '@ionic/angular';
