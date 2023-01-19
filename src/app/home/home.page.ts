@@ -50,6 +50,10 @@ export class HomePage implements OnInit {
     return await popover.present();
   }
 
+  goToProfile(){
+    this.router.navigate(['/profile']);
+  }
+
   logOut() {
     this.auth.signOut().then(() => {
       // Sign-out successful.

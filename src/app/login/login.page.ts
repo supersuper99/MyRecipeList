@@ -44,6 +44,7 @@ export class LoginPage implements OnInit {
 
   forgotPassword(){
   }
+  
   signupnav(){
     this.router.navigate(['/signup']);
   }
