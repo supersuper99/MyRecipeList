@@ -1,9 +1,29 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>profile</ion-title>
+    <ion-title>
+      Profile
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>{{user.username}}</ion-card-subtitle>
+      <ion-card-title>About Me</ion-card-title>
+    </ion-card-header>
 
+    <ion-card-content>
+      <p *ngIf="!user.aboutMe">No information provided</p>
+      <p *ngIf="user.aboutMe">{{user.aboutMe}}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- <app-private-recipe-list [userId]="user.id"></app-private-recipe-list> -->
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="updateProfile()">
+      <ion-icon name="create"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
