@@ -45,7 +45,10 @@ export class RecipePopoverComponent {
         comment: this.reviewForm.value.comment,
         createdAt: new Date()
     };
-    if (this.reviewForm.value.rating <1 && this.reviewForm.value.rating >5){
+    if (this.reviewForm.value.rating <1 || this.reviewForm.value.rating >5){
+      console.log('must be between 1 and 5')
+      return
+    } else{
 
     this.firebaseService.addReview(this.recipe.id, review).then(() => {
         this.reviewForm.reset();
