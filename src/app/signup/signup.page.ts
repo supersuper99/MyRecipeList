@@ -23,7 +23,7 @@ export class SignupPage {
   db = firebase.firestore().collection('users')
 
 
-  constructor(private router: Router, private fb: FormBuilder) { }
+  constructor(private router: Router, private fb: FormBuilder,) { }
   ngOnInit() {
     this.buildForm();
   }

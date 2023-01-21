@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { PopoverController } from '@ionic/angular';
+import { AlertController, PopoverController } from '@ionic/angular';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
@@ -8,6 +8,7 @@ import { ModalController } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Review } from '../models/review';
 import { FirebaseService } from 'src/services/firebase.service';
+import { RatingsAndReviewsComponent } from '../ratings-and-reviews/ratings-and-reviews.component';
 
 const db = firebase.firestore();
 const auth = firebase.auth();
@@ -25,7 +26,7 @@ export class RecipePopoverComponent {
   reviewForm!: FormGroup;
 
 
-  constructor(private popoverController: PopoverController, private modalCtrl: ModalController, private formBuilder: FormBuilder, private firebaseService: FirebaseService) { }
+  constructor(private popoverController: PopoverController, private modalCtrl: ModalController, private formBuilder: FormBuilder, private firebaseService: FirebaseService,private alertController: AlertController) { }
 
   ngOnInit() {
     this.buildForm()
@@ -44,17 +45,19 @@ export class RecipePopoverComponent {
         comment: this.reviewForm.value.comment,
         createdAt: new Date()
     };
+    if (this.reviewForm.value.rating <1 && this.reviewForm.value.rating >5){
+
     this.firebaseService.addReview(this.recipe.id, review).then(() => {
         this.reviewForm.reset();
     });
-  }
+  }}
 }
 
 
 
   buildForm(): void {
     this.reviewForm = this.formBuilder.group({
-      rating: [0, Validators.required],
+      rating: ['', [Validators.required, Validators.min(1), Validators.max(5)]],
       comment: ['', Validators.required],
     });
   }

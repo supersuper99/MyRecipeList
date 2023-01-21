@@ -13,16 +13,17 @@
           <form [formGroup]="reviewForm">
             <ion-item>
                 <ion-label position="stacked"> Rating </ion-label>
-                <ion-input formControlName="rating"></ion-input>
+                <ion-input formControlName="rating" type="number" placeholder="000"></ion-input>
               </ion-item>
               <ion-item>
                 <ion-label position="stacked"> Comment </ion-label>
                 <ion-input formControlName="comment"></ion-input>
               </ion-item>
-              <ion-button (click)="addRecipe()" class="button" expand="block" [disabled]="reviewForm.invalid">
+              <ion-button (click)="addReview()" class="button" expand="block" [disabled]="reviewForm.invalid">
                 Add Review
               </ion-button>
           </form>
+
         
           <!-- <ion-button (click)="addToPrivateList(recipe)" expand="block" color="primary">Add to My List</ion-button> -->
           

@@ -1,7 +1,7 @@
 import { Review } from "./review";
 
 export class Recipe {
-    id: string='';
+    id!: any;
     name: string='';
     ingredients: string='';
     instructions: string='';
