@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
-import { PopoverController } from '@ionic/angular';
+import { ModalController, PopoverController } from '@ionic/angular';
 import { RecipePopoverComponent } from '../recipe-popover/recipe-popover.component';
 import firebaseApp from 'src/firebase';
 import { Recipe } from '../models/recipe';
@@ -25,7 +25,7 @@ export class RecipeListComponent implements OnInit {
   db = firebase.firestore();
   auth = firebase.auth()
 
-  constructor(public popoverController: PopoverController, private router: Router, private firebaseService: FirebaseService) { }
+  constructor(public popoverController: PopoverController, private router: Router, private firebaseService: FirebaseService, private modalCtrl: ModalController) { }
 
   ngOnInit() {
     this.listing();
@@ -66,7 +66,7 @@ export class RecipeListComponent implements OnInit {
 
 
   async showDetails(recipe: any) {
-    const popover = await this.popoverController.create({
+    const popover = await this.modalCtrl.create({
       component: RecipePopoverComponent,
       componentProps: { recipe },
     });

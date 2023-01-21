@@ -19,18 +19,29 @@ const auth = firebase.auth();
   styleUrls: ['./recipe-popover.component.scss'],
 })
 export class RecipePopoverComponent {
-  @Input()
+  @Input() recipeId: string = '';
   recipe!: Recipe;
   db = firebase.firestore();
   auth = firebase.auth();
   reviewForm!: FormGroup;
+  reviews!: Review[];
 
 
   constructor(private popoverController: PopoverController, private modalCtrl: ModalController, private formBuilder: FormBuilder, private firebaseService: FirebaseService,private alertController: AlertController) { }
 
   ngOnInit() {
     this.buildForm()
+    // this.listReviews()
   }
+  
+  listReviews(){
+    
+    this.firebaseService.getReviews(this.recipeId).subscribe(reviews => {
+      this.reviews = reviews;
+    });
+    console.log(this.reviews)
+  }
+
 
   addReview() {
     if (this.reviewForm.valid) {
@@ -45,15 +56,12 @@ export class RecipePopoverComponent {
         comment: this.reviewForm.value.comment,
         createdAt: new Date()
     };
-    if (this.reviewForm.value.rating <1 || this.reviewForm.value.rating >5){
-      console.log('must be between 1 and 5')
-      return
-    } else{
+    
 
     this.firebaseService.addReview(this.recipe.id, review).then(() => {
         this.reviewForm.reset();
     });
-  }}
+  }
 }
 
 

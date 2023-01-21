@@ -23,7 +23,14 @@
                 Add Review
               </ion-button>
           </form>
-          
+          <ion-list>
+            <ion-item *ngFor="let review of recipe.reviews">
+              <ion-label>{{ review.userId }}</ion-label>
+              <ion-label>{{ review.comment }}</ion-label>
+              <ion-label>{{ review.rating}}/5</ion-label>
+       
+            </ion-item>
+          </ion-list>
 
         
           <!-- <ion-button (click)="addToPrivateList(recipe)" expand="block" color="primary">Add to My List</ion-button> -->

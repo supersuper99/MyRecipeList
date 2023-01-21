@@ -27,6 +27,8 @@ export class FirebaseService {
         return this.db.collection('publicRecipesList').get();
     }
 
+  
+
     addReview(recipeId: string, review: Review): Promise<void> {
         return this.db.doc(`publicRecipesList/${recipeId}`).update({
             reviews: firebase.firestore.FieldValue.arrayUnion(review)
@@ -50,17 +52,19 @@ export class FirebaseService {
     }
 
     getReviews(recipeId: string): Observable<Review[]> {
-        return from(this.db.doc(`publicRecipesList/${recipeId}`).get()).pipe(
+      return from(this.db.doc(`publicRecipesList/${recipeId}`).get()).pipe(
           map(doc => {
-            if (doc.exists) {
-              const recipe = doc.data() as Recipe;
-              return recipe.reviews || [];
-            } else {
-              return [];
-            }
+              if (doc.exists) {
+                  const recipe = doc.data() as Recipe;
+                  return recipe.reviews || [];
+              } else {
+                  return [];
+              }
           }),
-        );
-      }
+      );
+  }
+
+     
     
 
 }
