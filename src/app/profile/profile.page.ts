@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
+import { FirebaseService } from 'src/services/firebase.service';
 
 @Component({
   selector: 'app-profile',
@@ -6,10 +10,35 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
+  auth = firebase.auth();
+  db = firebase.firestore();
 
-  constructor() { }
+  constructor(private firebaseService: FirebaseService) {}
 
   ngOnInit() {
+
   }
+  
+  signout(){
+  }
+
+  updateProfile(){
+    const user = this.auth.currentUser
+    
+    if (user) {
+      this.db.collection("users").doc(user.uid).update({
+        aboutme: true
+      }).then(() => {
+        console.log("Document successfully updated!");
+    })
+    .catch((error) => {
+        // The document probably doesn't exist.
+        console.error("Error updating document: ", error);
+    });
+      
+      
+    }
+  }
+
 
 }

@@ -49,7 +49,8 @@ export class SignupPage {
         // Add the user to the Firestore
         this.db.doc(userCredential.user!.uid).set({
           username: username,
-          email: email
+          email: email,
+          
         });
           this.router.navigate(['/home']);
         })
