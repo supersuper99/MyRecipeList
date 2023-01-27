@@ -19,6 +19,20 @@
     </ion-card-content>
   </ion-card>
 
+  <form [formGroup]="validateForm">
+    <ion-item>
+      <ion-label position="stacked"> about me </ion-label>
+      <ion-input formControlName="aboutme"></ion-input>
+    </ion-item>
+    <p class="error-message"
+      *ngIf="validateForm.get('aboutme')!.dirty && validateForm.get('aboutme')!.hasError('required')">
+      please input username
+    </p>
+    <ion-button (click)="signup()" class="button" expand="block">
+      Update about me
+    </ion-button>
+  </form>
+
   <!-- <app-private-recipe-list [userId]="user.id"></app-private-recipe-list> -->
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">

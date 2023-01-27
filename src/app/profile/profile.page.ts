@@ -23,11 +23,12 @@ export class ProfilePage implements OnInit {
   }
 
   updateProfile(){
-    const user = this.auth.currentUser
+    const user = this.auth.currentUser;
+    const aboutMe = '';
     
     if (user) {
       this.db.collection("users").doc(user.uid).update({
-        aboutme: true
+        aboutme: this.user.aboutMe
       }).then(() => {
         console.log("Document successfully updated!");
     })
