@@ -4,6 +4,7 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import { FirebaseService } from 'src/services/firebase.service';
+import { AboutMeModalComponent } from '../about-me-modal/about-me-modal.component';
 
 @Component({
   selector: 'app-profile',
@@ -14,7 +15,7 @@ export class ProfilePage implements OnInit {
   auth = firebase.auth();
   db = firebase.firestore();
 
-  constructor(private firebaseService: FirebaseService, private modalCtrl: ModalController) {}
+  constructor(private firebaseService: FirebaseService, private modalCtrl: ModalController, private aboutMeModalComponent: AboutMeModalComponent) {}
 
   ngOnInit() {
 
@@ -23,33 +24,14 @@ export class ProfilePage implements OnInit {
   signout(){
   }
 
-  async showDetails(recipe: any) {
+  async showDetails() {
     const modal = await this.modalCtrl.create({
-      component: RecipePopoverComponent,
-      componentProps: { recipe },
+      component: AboutMeModalComponent,
     });
     return await modal.present();
   }
 
 
-  updateProfile(){
-    const user = this.auth.currentUser;
-    const aboutMe = '';
-    
-    if (user) {
-      this.db.collection("users").doc(user.uid).update({
-        aboutme: 
-      }).then(() => {
-        console.log("Document successfully updated!");
-    })
-    .catch((error) => {
-        // The document probably doesn't exist.
-        console.error("Error updating document: ", error);
-    });
-      
-      
-    }
-  }
 
 
 }
