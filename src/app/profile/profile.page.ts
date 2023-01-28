@@ -24,7 +24,7 @@ export class ProfilePage implements OnInit {
   signout(){
   }
 
-  async showDetails() {
+  async aboutMe() {
     const modal = await this.modalCtrl.create({
       component: AboutMeModalComponent,
     });

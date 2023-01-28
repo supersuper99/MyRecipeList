@@ -9,9 +9,8 @@
     <ion-label position="stacked"> about me </ion-label>
     <ion-input formControlName="aboutme"></ion-input>
   </ion-item>
-  <p class="error-message"
-    *ngIf="validateForm.get('aboutme')!.dirty && validateForm.get('aboutme')!.hasError('required')">
-    please input username
-  </p>
+  <ion-button (click)="updateProfile()" class="button" expand="block">
+    Add recipe
+  </ion-button>
 </form>
 </ion-content>

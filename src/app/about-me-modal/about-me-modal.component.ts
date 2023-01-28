@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
@@ -10,6 +10,11 @@ import { FirebaseService } from 'src/services/firebase.service';
   templateUrl: './about-me-modal.component.html',
   styleUrls: ['./about-me-modal.component.scss'],
 })
+
+@Injectable({
+  providedIn: 'root' // just before your class
+})
+
 export class AboutMeModalComponent implements OnInit {
   auth = firebase.auth();
   db = firebase.firestore();
@@ -23,7 +28,7 @@ export class AboutMeModalComponent implements OnInit {
 
   buildForm(): void {
     this.validateForm = this.formBuilder.group({
-      aboutMe: ['', Validators.required],
+      aboutme: ['', Validators.required],
     });
   }
 

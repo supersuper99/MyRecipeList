@@ -18,17 +18,12 @@
       <!-- <p *ngIf="user.aboutMe">{{user.aboutMe}}</p> -->
     </ion-card-content>
   </ion-card>
-
-  
-    <ion-button (click)="signup()" class="button" expand="block">
-      Update about me
-    </ion-button>
-  </form>
+ 
 
   <!-- <app-private-recipe-list [userId]="user.id"></app-private-recipe-list> -->
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="updateProfile()">
+    <ion-fab-button (click)="aboutMe()">
       <ion-icon name="create"></ion-icon>
     </ion-fab-button>
   </ion-fab>
