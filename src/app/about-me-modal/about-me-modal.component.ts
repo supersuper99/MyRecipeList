@@ -28,19 +28,18 @@ export class AboutMeModalComponent implements OnInit {
   }
 
   updateProfile(){
+    if (this.validateForm.valid) {
     const user = this.auth.currentUser;
-    const aboutMe = '';
-    
     if (user) {
       this.db.collection("users").doc(user.uid).update({
-        aboutme: this.user.displayName 
+        aboutme: this.validateForm.value.aboutme 
       }).then(() => {
-        console.log("Document successfully updated!");
+        console.log('this.aboutme');
     })
     .catch((error) => {
         // The document probably doesn't exist.
         console.error("Error updating document: ", error);
     });
 
-  }}
+  }}}
 }
