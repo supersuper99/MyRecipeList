@@ -1,3 +1,17 @@
-<p>
-  about-me-modal works!
-</p>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Recipe Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+<form [formGroup]="validateForm">
+  <ion-item>
+    <ion-label position="stacked"> about me </ion-label>
+    <ion-input formControlName="aboutme"></ion-input>
+  </ion-item>
+  <p class="error-message"
+    *ngIf="validateForm.get('aboutme')!.dirty && validateForm.get('aboutme')!.hasError('required')">
+    please input username
+  </p>
+</form>
+</ion-content>
