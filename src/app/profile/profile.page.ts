@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
@@ -13,7 +14,7 @@ export class ProfilePage implements OnInit {
   auth = firebase.auth();
   db = firebase.firestore();
 
-  constructor(private firebaseService: FirebaseService) {}
+  constructor(private firebaseService: FirebaseService, private modalCtrl: ModalController) {}
 
   ngOnInit() {
 
@@ -22,13 +23,22 @@ export class ProfilePage implements OnInit {
   signout(){
   }
 
+  async showDetails(recipe: any) {
+    const modal = await this.modalCtrl.create({
+      component: RecipePopoverComponent,
+      componentProps: { recipe },
+    });
+    return await modal.present();
+  }
+
+
   updateProfile(){
     const user = this.auth.currentUser;
     const aboutMe = '';
     
     if (user) {
       this.db.collection("users").doc(user.uid).update({
-        aboutme: this.user.aboutMe
+        aboutme: 
       }).then(() => {
         console.log("Document successfully updated!");
     })
