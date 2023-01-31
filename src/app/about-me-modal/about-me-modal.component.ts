@@ -39,7 +39,7 @@ export class AboutMeModalComponent implements OnInit {
       this.db.collection("users").doc(user.uid).update({
         aboutme: this.validateForm.value.aboutme 
       }).then(() => {
-        console.log('this.aboutme');
+        
     })
     .catch((error) => {
         // The document probably doesn't exist.

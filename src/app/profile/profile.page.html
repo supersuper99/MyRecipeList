@@ -3,24 +3,28 @@
     <ion-title>
       Profile
     </ion-title>
+    <ion-button (click)="goHome()"> go home</ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-card>
     <ion-card-header>
-      <!-- <ion-card-subtitle>{{user.username}}</ion-card-subtitle> -->
+      <!-- <ion-card-subtitle>{{uid.username}}</ion-card-subtitle> -->
       <ion-card-title>About Me</ion-card-title>
     </ion-card-header>
 
-    <ion-card-content>
-      <!-- <ion-textarea *ngIf="!user.aboutMe" placeholder="Write a brief description about yourself"></ion-textarea> -->
-      <p >{{aboutMe}}</p>
+    
+  </ion-card>
+  <ion-card>
+    <ion-card-content *ngIf="aboutMe">
+
+      <p >{{aboutMe.aboutme}}</p>
     </ion-card-content>
   </ion-card>
  
 
-  <!-- <app-private-recipe-list [userId]="user.id"></app-private-recipe-list> -->
+
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="aboutMeModal()">

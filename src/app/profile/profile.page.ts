@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
@@ -15,9 +16,9 @@ import { AboutMeModalComponent } from '../about-me-modal/about-me-modal.componen
 export class ProfilePage implements OnInit {
   auth = firebase.auth();
   db = firebase.firestore();
-  aboutMe: string ='';
+  aboutMe: any;
 
-  constructor(private firebaseService: FirebaseService, private modalCtrl: ModalController, private aboutMeModalComponent: AboutMeModalComponent) {}
+  constructor(private firebaseService: FirebaseService, private modalCtrl: ModalController, private aboutMeModalComponent: AboutMeModalComponent, private router: Router) {}
 
   ngOnInit() {
     this.getAboutMe()
@@ -26,18 +27,17 @@ export class ProfilePage implements OnInit {
   getAboutMe(){
     const user = this.auth.currentUser
     if(user){
-    return this.db.collection('/users').doc(user.uid).onSnapshot(doc =>  {
-      if (doc.exists) {
-          this.aboutMe = doc.data()?.['aboutMe'];
-          
-      } else {
-          // doc.data() will be undefined in this case
-          console.log("No such document!");
-      }
-  })
-}
-  
+       this.db.collection('/users').doc(user.uid).onSnapshot((snapshot) => {
+      this.aboutMe = snapshot.data();
+      console.log(this.aboutMe)
+      console.log('fdsa')
+    });
+   
+    }else{
+    console.log('no user found')
+    return
   }
+}
 
   
   
@@ -49,6 +49,10 @@ export class ProfilePage implements OnInit {
       component: AboutMeModalComponent,
     });
     return await modal.present();
+  }
+
+  goHome(){
+    this.router.navigate(['/home']);
   }
 
 
