@@ -25,9 +25,9 @@
           </form>
           <ion-list>
             <ion-item *ngFor="let review of recipe.reviews">
-              <p>{{ review.userId }}</p>
+              <p>{{ review.userId }}: </p>
               <p>{{ review.comment }}</p>
-              <ion-label>{{ review.rating}}/5</ion-label>
+              <ion-badge slot="end">{{review.rating}}/5</ion-badge>
        
             </ion-item>
           </ion-list>

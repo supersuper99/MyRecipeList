@@ -39,7 +39,7 @@ export class ProfilePage implements OnInit {
     }
   }
 
-  signout() {
+  signOut() {
     this.auth.signOut()
       .then(() => {
         this.router.navigate(['/signup']);
@@ -59,8 +59,4 @@ export class ProfilePage implements OnInit {
   goHome() {
     this.router.navigate(['/home']);
   }
-
-
-
-
 }
