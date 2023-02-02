@@ -18,36 +18,35 @@ export class ProfilePage implements OnInit {
   db = firebase.firestore();
   aboutMe: any;
 
-  constructor(private firebaseService: FirebaseService, private modalCtrl: ModalController, private aboutMeModalComponent: AboutMeModalComponent, private router: Router) {}
+  constructor(private firebaseService: FirebaseService, private modalCtrl: ModalController, private aboutMeModalComponent: AboutMeModalComponent, private router: Router) { }
 
   ngOnInit() {
     this.getAboutMe()
   }
 
-  getAboutMe(){
+  getAboutMe() {
     const user = this.auth.currentUser
-    if(user){
-       this.db.collection('/users').doc(user.uid).onSnapshot((snapshot) => {
-      this.aboutMe = snapshot.data();
-      console.log(this.aboutMe)
-      console.log('fdsa')
-    });
-   
-    }else{
-    console.log('no user found')
-    return
-  }
-}
+    if (user) {
+      this.db.collection('/users').doc(user.uid).onSnapshot((snapshot) => {
+        this.aboutMe = snapshot.data();
+        console.log(this.aboutMe)
+        console.log('fdsa')
+      });
 
-  
-  
-  signout(){
+    } else {
+      console.log('no user found')
+      return
+    }
+  }
+
+  signout() {
     this.auth.signOut()
-    .then(function() {
-      console.log('Signed Out');
-    }, function(error) {
-      console.error('Sign Out Error', error);
-    });
+      .then(() => {
+        this.router.navigate(['/signup']);
+        console.log('Signed Out');
+      }, function (error) {
+        console.error('Sign Out Error', error);
+      });
   }
 
   async aboutMeModal() {
@@ -57,7 +56,7 @@ export class ProfilePage implements OnInit {
     return await modal.present();
   }
 
-  goHome(){
+  goHome() {
     this.router.navigate(['/home']);
   }
 

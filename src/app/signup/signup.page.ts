@@ -42,16 +42,16 @@ export class SignupPage {
       const password = this.validateForm.controls['password'].value;
       const username = this.validateForm.controls['username'].value;
       this.auth.createUserWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        userCredential.user!.updateProfile({
-          displayName: username
-        });
-        // Add the user to the Firestore
-        this.db.doc(userCredential.user!.uid).set({
-          username: username,
-          email: email,
-          
-        });
+        .then((userCredential) => {
+          userCredential.user!.updateProfile({
+            displayName: username
+          });
+          // Add the user to the Firestore
+          this.db.doc(userCredential.user!.uid).set({
+            username: username,
+            email: email,
+
+          });
           this.router.navigate(['/home']);
         })
     } else {
@@ -59,33 +59,10 @@ export class SignupPage {
     }
   }
 
-
-
+  login() {
+    this.router.navigate(['/login']);
+  }
 
   forgotPassword() { }
 
-
-
-  // signUp(form) {
-  //   const { username, email, password } = form.value;
-  //   createUserWithEmailAndPassword(auth, email, password)
-  //     .then(() => {
-  //       if (auth.currentUser) {
-  //       updateProfile(auth.currentUser, {
-  //         displayName: username, photoURL:""
-  //       } )
-  //       .then(() => {
-
-  //       })
-  //       .catch((error) => {
-  //         // An error occurred
-  //         // ...
-  //       });
-
-  //       this.router.navigate(['/home']);
-  // }})
-  //     .catch((error) => {
-  //       this.error = error.message;
-  //     });
-  // }
 }
