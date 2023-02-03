@@ -47,22 +47,13 @@ export class RecipeListComponent implements OnInit {
       });
   }
 
-  searchRecipes() {
-    this.firebaseService.searchPublicRecipes(this.searchTerm)
-      .then(querySnapshot => {
-        this.recipes = querySnapshot.docs.map(doc => {
-          return {
-            id: doc.id,
-            ...doc.data()
-          } as Recipe;
-        });
-        console.log(this.recipes);
-      })
-      .catch(error => {
-        console.log(error);
-      });
+  filterRecipes() {
+    this.recipes = this.recipes.filter(recipe => {
+      return recipe.name.toLowerCase().includes(this.searchTerm.toLowerCase());
+    });
   }
-  
+
+
 
   getAverageRating(reviews: Review[]) {
     return reviews.reduce((acc, curr) => acc + curr.rating, 0) / reviews.length;

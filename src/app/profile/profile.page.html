@@ -1,13 +1,16 @@
 <ion-header>
   <ion-toolbar>
-    <ion-button (click)="signOut()">sign out</ion-button>
-    <ion-title>
-      Profile
+    <ion-buttons slot="start">
+      <ion-button (click)="signOut()">Sign Out</ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">
+      <h1>Profile</h1>
     </ion-title>
-    <ion-button (click)="goHome()"> go home</ion-button>
+    <ion-buttons slot="end">
+      <ion-button (click)="goHome()">Go Home</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
   <ion-card>
     <ion-card-header *ngIf="aboutMe">
@@ -15,15 +18,15 @@
       <ion-card-title>About Me</ion-card-title>
     </ion-card-header>
 
-    
+
   </ion-card>
   <ion-card>
     <ion-card-content *ngIf="aboutMe">
 
-      <p >{{aboutMe.aboutme}}</p>
+      <p>{{aboutMe.aboutme}}</p>
     </ion-card-content>
   </ion-card>
- 
+
 
 
 
