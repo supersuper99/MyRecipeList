@@ -7,7 +7,7 @@
 </ion-header>
 
 <ion-content class="colors">
-
+  <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="searchPublicRecipes(searchTerm)"></ion-searchbar>
   <ion-list >
     <ion-item *ngFor="let recipe of recipes" (click)="showDetails(recipe)">
       {{recipe.name}}

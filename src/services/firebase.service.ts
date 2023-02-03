@@ -20,6 +20,10 @@ export class FirebaseService {
 
   constructor() { }
 
+  searchPublicRecipes(searchTerm: string) {
+    return this.db.collection('recipes').where('name', '==', searchTerm).get();
+  }
+
   addRecipe(recipe: Recipe) {
     return this.db.collection('publicRecipesList').add(recipe);
   }

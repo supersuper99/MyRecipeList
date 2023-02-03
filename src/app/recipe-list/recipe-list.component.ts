@@ -4,7 +4,7 @@ import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import { ModalController, PopoverController } from '@ionic/angular';
 import { RecipePopoverComponent } from '../recipe-popover/recipe-popover.component';
-import firebaseApp from 'src/firebase';
+
 import { Recipe } from '../models/recipe';
 import { Router } from '@angular/router';
 import { FirebaseService } from 'src/services/firebase.service';
@@ -46,6 +46,23 @@ export class RecipeListComponent implements OnInit {
         console.log(error);
       });
   }
+
+  searchRecipes() {
+    this.firebaseService.searchPublicRecipes(this.searchTerm)
+      .then(querySnapshot => {
+        this.recipes = querySnapshot.docs.map(doc => {
+          return {
+            id: doc.id,
+            ...doc.data()
+          } as Recipe;
+        });
+        console.log(this.recipes);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+  
 
   getAverageRating(reviews: Review[]) {
     return reviews.reduce((acc, curr) => acc + curr.rating, 0) / reviews.length;
