@@ -1,22 +1,15 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Login
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
 
 <ion-content>
   <form [formGroup]="validateForm">
     <ion-item>
-      <ion-label position="stacked"> Email </ion-label>
+      <ion-label position="stacked"><ion-icon name="logo-ionic"></ion-icon> Email </ion-label>
       <ion-input formControlName="email"></ion-input>
     </ion-item>
     <p class="error-message" *ngIf="validateForm.get('email')!.dirty && validateForm.get('email')!.hasError('required')">
       please input email
     </p>
     <ion-item>
-      <ion-label position="stacked"> Password </ion-label>
+      <ion-label position="stacked"> <ion-icon name="logo-ionic"></ion-icon> Password </ion-label>
       <ion-input formControlName="password" type="password"></ion-input>
     </ion-item>
     <p class="error-message" *ngIf="validateForm.get('password')!.dirty && validateForm.get('password')!.hasError('required')">
