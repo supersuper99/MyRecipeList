@@ -21,17 +21,20 @@
     <p class="error-message" *ngIf="validateForm.get('password')!.dirty && validateForm.get('password')!.hasError('required')">
       please input password
     </p>
-    <ion-button (click)="login()" shape="round" class="lbutton" expand="block">
+    <ion-button color="dark" (click)="login()" shape="round" class="lbutton" expand="block">
       Log in
     </ion-button>
     
-      <ion-button  expand="block" shape="round" class="sbutton" (click)="signupnav()"> Sign up here</ion-button>
+      <ion-button color="dark" expand="block" shape="round" class="sbutton" (click)="signupnav()"> Sign up</ion-button>
     
     <ion-row class="ion-justify-content-end forgot-password">
       <ion-button fill="clear" (click)="forgotPassword()"> Forgot password?</ion-button>
     </ion-row>
     <ion-row>
-      <ion-button shape="round" fill="outline" class="secondarybuttons">Google</ion-button><ion-button shape="round" fill="outline">Facebook</ion-button>
+      <ion-button color="dark" shape="round" fill="outline" class="secondarybuttons">  
+        <ion-icon name="logo-google"></ion-icon>  Google</ion-button>
+      <ion-button color="dark" shape="round" fill="outline" class="secondarybuttons">
+        <ion-icon name="logo-facebook"></ion-icon>  Facebook</ion-button>
     </ion-row>
   </form>
 
