@@ -5,9 +5,9 @@
   <div class="header">
     <h3>Sign Up</h3>
     </div>
-    <form [formGroup]="validateForm">
+    <form [formGroup]="validateForm" class="formlog">
       <ion-item>
-        <ion-label position="stacked"> Username </ion-label>
+        <ion-label position="floating"> Username </ion-label>
         <ion-input formControlName="username"></ion-input>
       </ion-item>
       <p class="error-message"
@@ -15,7 +15,7 @@
         please input username
       </p>
       <ion-item>
-        <ion-label position="stacked"> Email </ion-label>
+        <ion-label position="floating"> Email </ion-label>
         <ion-input formControlName="email"></ion-input>
       </ion-item>
       <p class="error-message"
@@ -23,7 +23,7 @@
         please input email
       </p>
       <ion-item>
-        <ion-label position="stacked"> Password </ion-label>
+        <ion-label position="floating"> Password </ion-label>
         <ion-input formControlName="password" type="password"></ion-input>
       </ion-item>
       <p class="error-message"
