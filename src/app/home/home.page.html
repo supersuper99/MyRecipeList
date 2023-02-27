@@ -1,17 +1,10 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-title class="ion-text-center">
-      <h1>Home</h1>
-    </ion-title>
-    <ion-buttons slot="end">
+
+<ion-content class="ion-padding">
+  <ion-buttons slot="end">
       <ion-button (click)="goToProfile()">
         <ion-icon name="person" class="ion-text-light"></ion-icon>
       </ion-button>
     </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content class="ion-padding">
   <app-recipe-list></app-recipe-list>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
