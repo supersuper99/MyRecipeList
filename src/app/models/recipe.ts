@@ -9,4 +9,6 @@ export class Recipe {
     createdAt!: Date;
     rating: number = 0;
     reviews: Review[] = [];
+  image: any;
+   
 }

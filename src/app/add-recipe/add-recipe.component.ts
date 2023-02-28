@@ -31,6 +31,7 @@ export class AddRecipeComponent implements OnInit {
       name: ['', Validators.required],
       ingredients: ['', Validators.required],
       instructions: ['', Validators.required],
+      image: [''] // added image form control
     });
   }
 
@@ -49,6 +50,7 @@ export class AddRecipeComponent implements OnInit {
       recipe.instructions = this.addRecipeForm.controls['instructions'].value;
       recipe.userId = user.displayName;
       recipe.createdAt = new Date;
+      recipe.image = this.addRecipeForm.controls['image'].value || 'https://www.fillmurray.com/200/200'; // set default image
       const plainObject = { ...recipe };
        
       this.firebaseService.addRecipe(plainObject)
