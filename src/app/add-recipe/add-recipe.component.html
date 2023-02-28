@@ -31,6 +31,10 @@
       *ngIf="addRecipeForm.get('instructions')!.dirty && addRecipeForm.get('instructions')!.hasError('required')">
       please input Ingredients
     </p>
+    <ion-item>
+      <ion-label position="stacked"> Image </ion-label>
+      <ion-input type="file" (change)="handleFileInput($event)"></ion-input>
+    </ion-item>
     <ion-button (click)="addRecipe()" class="button" expand="block">
       Add recipe
     </ion-button>
@@ -38,21 +42,4 @@
       Add to private list
     </ion-button>
   </form>
-
-
-  <!-- <form [formGroup]="addRecipeForm" (ngSubmit)="addRecipe()">
-    <ion-item>
-      <ion-label position="floating">Recipe Name</ion-label>
-      <ion-input formControlName="name"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Ingredients</ion-label>
-      <ion-input formControlName="ingredients"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Instructions</ion-label>
-      <ion-textarea formControlName="instructions"></ion-textarea>
-    </ion-item>
-    <ion-button expand="block" type="submit" [disabled]="!addRecipeForm.valid">Add Recipe</ion-button>
-  </form> -->
 </ion-content>
