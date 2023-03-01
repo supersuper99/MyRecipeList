@@ -8,7 +8,6 @@ export class Recipe {
     userId!: any;
     createdAt!: Date;
     rating: number = 0;
-    reviews: Review[] = [];
-  image: any;
-   
+    reviews: Review[] = [];   
+    image: string = 'default-image-url'; // default image url
 }
