@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl, ValidationErrors, } from '@angular/forms';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
@@ -31,7 +31,29 @@ export class AddRecipeComponent implements OnInit {
       name: ['', Validators.required],
       ingredients: ['', Validators.required],
       instructions: ['', Validators.required],
-      image: [''] // added image form control
+      image: [null, [Validators.required], [this.imageValidator.bind(this)]]
+    });
+  }
+
+  imageValidator(control: AbstractControl): Promise<ValidationErrors | null> {
+    return new Promise((resolve, reject) => {
+      const file = control.value;
+      if (!file) {
+        return resolve(null);
+      }
+  
+      const reader = new FileReader();
+      reader.onload = () => {
+        const img = new Image();
+        img.onload = () => {
+          if (img.width < 800 || img.height < 600 || img.width > 1024 || img.height > 768) {
+            return reject({ invalidImageSize: true });
+          }
+          resolve(null);
+        };
+        img.src = reader.result as string;
+      };
+      reader.readAsDataURL(file);
     });
   }
 
@@ -50,7 +72,7 @@ export class AddRecipeComponent implements OnInit {
       recipe.instructions = this.addRecipeForm.controls['instructions'].value;
       recipe.userId = user.displayName;
       recipe.createdAt = new Date;
-      recipe.image = this.addRecipeForm.controls['image'].value || 'https://www.fillmurray.com/200/200'; // set default image
+      recipe.image = this.addRecipeForm.controls['image'].value;
       const plainObject = { ...recipe };
        
       this.firebaseService.addRecipe(plainObject)
