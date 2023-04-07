@@ -64,7 +64,7 @@ export class AddRecipeComponent implements OnInit {
 
 
 
-  addRecipe() {
+  async addRecipe() {
     if (this.addRecipeForm.valid) {
       const user = this.auth.currentUser;
       if (!user) {
@@ -72,31 +72,31 @@ export class AddRecipeComponent implements OnInit {
         return;
       } 
       const recipe =  new Recipe();
-
-      
       recipe.name = this.addRecipeForm.controls['name'].value;
       recipe.ingredients = this.addRecipeForm.controls['ingredients'].value;
       recipe.instructions = this.addRecipeForm.controls['instructions'].value;
       recipe.userId = user.displayName;
       recipe.createdAt = new Date;
-      recipe.image = this.addRecipeForm.controls['image'].value;
-      const plainObject = { ...recipe };
-       
-      this.firebaseService.addRecipe(plainObject)
-     
-        .then(() => {
-          // Show a success message
-          // Clear the form
-          this.addRecipeForm.reset();
-          console.log(recipe)
-          console.log(plainObject)
-        })
-        .catch((error) => {
-          // Show an error message
-        });
-    }
+      const imageFile = this.addRecipeForm.controls['image'].value;
+      const imageFilePath = `images/${user.uid}/${Date.now()}_${imageFile.name}`;
 
+      try {
+        const storageRef = firebase.storage().ref(imageFilePath);
+        await storageRef.put(imageFile);
+        const imageUrl = await storageRef.getDownloadURL();
+        recipe.image = imageUrl;
+        const plainObject = { ...recipe };
+        await this.db.collection('recipes').add(plainObject);
+        // Show a success message
+        // Clear the form
+        this.addRecipeForm.reset();
+        console.log(recipe)
+        console.log(plainObject)
+      } catch (error) {
+        // Show an error message
+      }
     }
+  }
 
   async addRecipeToPrivateList() {
     if (this.addRecipeForm.valid) {
