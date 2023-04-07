@@ -20,6 +20,9 @@ export class AddRecipeComponent implements OnInit {
    db = firebase.firestore();
    auth = firebase.auth();
 
+   
+   
+
   constructor(private formBuilder: FormBuilder, private firebaseService: FirebaseService,) {}
 
   ngOnInit() {
@@ -56,6 +59,10 @@ export class AddRecipeComponent implements OnInit {
       reader.readAsDataURL(file);
     });
   }
+
+   
+
+
 
   addRecipe() {
     if (this.addRecipeForm.valid) {
