@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators, AbstractControl, ValidationErrors, 
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
+import 'firebase/compat/storage';
 import { Recipe } from '../models/recipe';
 import { FirebaseService } from 'src/services/firebase.service';
 
@@ -12,18 +13,19 @@ import { FirebaseService } from 'src/services/firebase.service';
   selector: 'app-add-recipe',
   templateUrl: 'add-recipe.component.html',
   styleUrls: ['add-recipe.component.scss'],
-  
+
 })
 export class AddRecipeComponent implements OnInit {
   addRecipeForm!: FormGroup;
   public recipe!: Recipe;
-   db = firebase.firestore();
-   auth = firebase.auth();
+  db = firebase.firestore();
+  auth = firebase.auth();
+  public previewImage!: string;
 
-   
-   
 
-  constructor(private formBuilder: FormBuilder, private firebaseService: FirebaseService,) {}
+
+
+  constructor(private formBuilder: FormBuilder, private firebaseService: FirebaseService,) { }
 
   ngOnInit() {
     this.buildForm()
@@ -34,49 +36,23 @@ export class AddRecipeComponent implements OnInit {
       name: ['', Validators.required],
       ingredients: ['', Validators.required],
       instructions: ['', Validators.required],
-      image: [null, [Validators.required], [this.imageValidator.bind(this)]]
+      image: [''],
     });
   }
-
-  imageValidator(control: AbstractControl): Promise<ValidationErrors | null> {
-    return new Promise((resolve, reject) => {
-      const file = control.value;
-      if (!file) {
-        return resolve(null);
-      }
-  
-      const reader = new FileReader();
-      reader.onload = () => {
-        const img = new Image();
-        img.onload = () => {
-          if (img.width < 800 || img.height < 600 || img.width > 1024 || img.height > 768) {
-            return reject({ invalidImageSize: true });
-          }
-          resolve(null);
-        };
-        img.src = reader.result as string;
-      };
-      reader.readAsDataURL(file);
-    });
-  }
-
-   
-
-
 
   async addRecipe() {
     if (this.addRecipeForm.valid) {
       const user = this.auth.currentUser;
       if (!user) {
-        console.log('no user try again')
+        console.log('no user try again');
         return;
-      } 
-      const recipe =  new Recipe();
+      }
+      const recipe = new Recipe();
       recipe.name = this.addRecipeForm.controls['name'].value;
       recipe.ingredients = this.addRecipeForm.controls['ingredients'].value;
       recipe.instructions = this.addRecipeForm.controls['instructions'].value;
       recipe.userId = user.displayName;
-      recipe.createdAt = new Date;
+      recipe.createdAt = new Date();
       const imageFile = this.addRecipeForm.controls['image'].value;
       const imageFilePath = `images/${user.uid}/${Date.now()}_${imageFile.name}`;
 
@@ -86,15 +62,19 @@ export class AddRecipeComponent implements OnInit {
         const imageUrl = await storageRef.getDownloadURL();
         recipe.image = imageUrl;
         const plainObject = { ...recipe };
-        await this.db.collection('recipes').add(plainObject);
+        await this.db.collection('publicRecipesList').add(plainObject);
         // Show a success message
         // Clear the form
         this.addRecipeForm.reset();
-        console.log(recipe)
-        console.log(plainObject)
+        console.log(recipe);
+        console.log(plainObject);
       } catch (error) {
         // Show an error message
+        console.log(error!)
       }
+    }
+    else{
+      console.log('notvalid')
     }
   }
 
@@ -120,10 +100,10 @@ export class AddRecipeComponent implements OnInit {
         .catch((error) => {
           // Show an error message
         });
-      }
     }
-
   }
 
-    
+}
+
+
 
