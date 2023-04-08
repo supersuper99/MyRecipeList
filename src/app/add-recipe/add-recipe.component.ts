@@ -68,6 +68,8 @@ export class AddRecipeComponent implements OnInit {
         this.addRecipeForm.reset();
         console.log(recipe);
         console.log(plainObject);
+        console.log(recipe.image);
+        console.log(imageUrl)
       } catch (error) {
         // Show an error message
         console.log(error!)
