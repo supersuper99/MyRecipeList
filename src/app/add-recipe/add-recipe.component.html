@@ -33,7 +33,7 @@
     </p>
     <ion-item>
       <ion-label position="stacked"> Image </ion-label>
-      <input type="file" >
+      <input type="file" (change)="onImageSelect($event)">
     </ion-item>
     <!-- Display image preview if available -->
     <img *ngIf="previewImage" [src]="previewImage" alt="Recipe Image" >

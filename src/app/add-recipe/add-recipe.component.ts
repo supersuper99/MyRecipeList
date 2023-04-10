@@ -40,6 +40,22 @@ export class AddRecipeComponent implements OnInit {
     });
   }
 
+  onImageSelect(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      // Create a FileReader to read the image file and set it as the image preview
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.previewImage = e.target.result;
+      };
+      reader.readAsDataURL(file);
+      // Set the selected image file as the image FormControl value
+      this.addRecipeForm.patchValue({
+        image: file
+      });
+    }
+  }
+
   async addRecipe() {
     if (this.addRecipeForm.valid) {
       const user = this.auth.currentUser;

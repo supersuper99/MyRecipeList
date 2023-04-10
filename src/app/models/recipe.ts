@@ -9,5 +9,5 @@ export class Recipe {
     createdAt!: Date;
     rating: number = 0;
     reviews: Review[] = [];   
-    image: string = 'default-image-url'; // default image url
+    image: string = ''; // default image url
 }
