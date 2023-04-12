@@ -3,8 +3,11 @@
 </ion-header>
 
 <ion-content>
+  <div class="image-container">
+    <img src="https://hips.hearstapps.com/hmg-prod/images/ingredients-for-the-healthy-foods-selection-the-royalty-free-image-1670349388.jpg?crop=0.457xw:0.721xh;0.119xw,0&resize=1200:*" alt="Food Image">
+  </div>
   <div class="header">
-  <h3>Login</h3>
+    <h3>Welcome Back!</h3>
   </div>
   <form [formGroup]="validateForm" class="formlog">
     <ion-item>
@@ -30,26 +33,5 @@
     <ion-row class="ion-justify-content-end forgot-password">
       <ion-button fill="clear" (click)="forgotPassword()"> Forgot password?</ion-button>
     </ion-row>
-    <ion-row>
-      <ion-button color="dark" shape="round" fill="outline" class="secondarybuttons">  
-        <ion-icon name="logo-google"></ion-icon>  Google</ion-button>
-      <ion-button color="dark" shape="round" fill="outline" class="secondarybuttons">
-        <ion-icon name="logo-facebook"></ion-icon>  Facebook</ion-button>
-    </ion-row>
   </form>
-
-
-
-   <!-- <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
-    <ion-item>
-      <ion-label position="floating">Email</ion-label>
-      <ion-input type="email" name="email" ngModel required></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Password</ion-label>
-      <ion-input type="password" name="password" ngModel required></ion-input>
-    </ion-item>
-    <ion-button type="submit" [disabled]="!loginForm.valid" expand="block">Login</ion-button>
-  </form> -->
-  <!-- <ion-text color="danger" *ngIf="error">{{ error }}</ion-text> -->
 </ion-content>
