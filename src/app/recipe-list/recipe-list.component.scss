@@ -1,3 +1,11 @@
-.colors{
-    background-color: blue($color: #000000);
-}
+ion-searchbar {
+    --background: #f8f8f8;
+    --box-shadow: none;
+  }
+  
+  ion-list {
+    ion-item {
+      --border-color: rgba(0, 0, 0, 0.1);
+      --border-width: 0 0 1px 0;
+    }
+  }

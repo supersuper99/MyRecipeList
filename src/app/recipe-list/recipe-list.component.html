@@ -1,12 +1,10 @@
-
-
-  <ion-searchbar  [(ngModel)]="searchTerm" (ionInput)="filterRecipes()"></ion-searchbar>
-  <ion-list lines="full">
-    <ion-item *ngFor="let recipe of recipes" (click)="showDetails(recipe)">
-      <ion-thumbnail slot="start">
-        <img [src]="recipe.image" alt="Recipe Image" width="60" height="60">
-      </ion-thumbnail>
-      <h2>{{recipe.name}}</h2>
-      <ion-badge color="primary" slot="end">{{ getAverageRating(recipe.reviews) | number: '1.1-1' }}</ion-badge>
-    </ion-item>
-  </ion-list>
+<ion-searchbar [(ngModel)]="searchTerm" (ionInput)="filterRecipes()"></ion-searchbar>
+<ion-list lines="full">
+  <ion-item *ngFor="let recipe of recipes" (click)="showDetails(recipe)">
+    <ion-thumbnail slot="start">
+      <img [src]="recipe.image" alt="Recipe Image" width="60" height="60">
+    </ion-thumbnail>
+    <h2>{{recipe.name}}</h2>
+    <ion-badge color="primary" slot="end">{{ getAverageRating(recipe.reviews) | number: '1.1-1' }}</ion-badge>
+  </ion-item>
+</ion-list>
