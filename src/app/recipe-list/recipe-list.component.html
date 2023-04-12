@@ -1,12 +1,5 @@
-<ion-header>
-  <ion-toolbar >
-    <ion-title class="ion-text-center">
-      <h1>Recipe List</h1>
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
 
-<ion-content class="colors ion-padding">
+
   <ion-searchbar  [(ngModel)]="searchTerm" (ionInput)="filterRecipes()"></ion-searchbar>
   <ion-list lines="full">
     <ion-item *ngFor="let recipe of recipes" (click)="showDetails(recipe)">
@@ -17,4 +10,3 @@
       <ion-badge color="primary" slot="end">{{ getAverageRating(recipe.reviews) | number: '1.1-1' }}</ion-badge>
     </ion-item>
   </ion-list>
-</ion-content>

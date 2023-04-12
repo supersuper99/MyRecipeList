@@ -1,14 +1,18 @@
+<ion-header>
+  <ion-toolbar >
+    <ion-button fill="clear" class='pButton' shape="round" color="dark" slot="end" (click)="goToProfile()" >
+      <ion-icon  name="person" class="ion-text-light"></ion-icon>
+    </ion-button>
+    <ion-title class="ion-text-center">
+      <h1>Recipe List</h1>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
 
 <ion-content class="ion-padding">
-  <ion-buttons slot="end">
-      <ion-button (click)="goToProfile()">
-        <ion-icon name="person" class="ion-text-light"></ion-icon>
-      </ion-button>
-    </ion-buttons>
   <app-recipe-list></app-recipe-list>
-
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button color="primary" (click)="addRecipe()">
+    <ion-fab-button color="dark" (click)="addRecipe()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
